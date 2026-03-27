@@ -1,4 +1,3 @@
-
 This pack turns the AI-friendly web design checklist into something Hermes can use directly.
 
 The core idea is simple: build web UI that is easy for humans to use and easy for agents to navigate.
@@ -26,6 +25,8 @@ The upstream package is published under CC BY 4.0, so attribution matters. Keep 
 
 - `skills/ai-friendly-web-design/SKILL.md` — routing skill and review checklist
 - `skills/ai-friendly-web-design/references/guidelines.md` — full principle list and examples
+- `skills/agent-friendly-ui-review/SKILL.md` — deeper review workflow for frontend code and components
+- `skills/agent-friendly-ui-review/references/code-review-playbook.md` — severity, review flow, and reporting format
 
 ## What this pack is good for
 

@@ -1,4 +1,3 @@
-## Why this exists
 
 Most skill libraries are tied too tightly to one vendor, one model, or one agent shell.
 
@@ -61,11 +60,13 @@ Core deliverables for the new project:
 - example packs with reference files
 - documentation for Hermes integration
 
-## Included packs
+## Pack index
 
-- `packs/railway/` — model-agnostic adaptation of the Railway workflow
-- `packs/seo-geo/` — SEO, GEO, and search-visibility routing pack
-- `packs/ai-friendly-web-design/` — agent-friendly UI and accessibility pack
+| Pack | What it covers |
+|---|---|
+| `packs/railway/` | Railway infrastructure operations, deploys, config, logs, and database analysis |
+| `packs/seo-geo/` | SEO, GEO, search visibility, and AI-search routing |
+| `packs/ai-friendly-web-design/` | Agent-friendly UI, accessibility, and frontend review workflows |
 
 ## What does not belong in core
 
