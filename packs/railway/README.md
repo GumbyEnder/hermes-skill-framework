@@ -1,4 +1,3 @@
-
 This is the first model-agnostic skill pack added to Hermes Skill Framework.
 
 Source inspiration:
@@ -29,6 +28,17 @@ This pack is rewritten to:
 ## Included skill
 
 - `skills/use-railway/SKILL.md`
+
+## Reference files
+
+This pack keeps workflow details out of the main skill and places them in references:
+
+- `skills/use-railway/references/setup.md`
+- `skills/use-railway/references/deploy.md`
+- `skills/use-railway/references/configure.md`
+- `skills/use-railway/references/operate.md`
+- `skills/use-railway/references/analyze-db.md`
+- `skills/use-railway/references/request.md`
 
 ## Notes
 

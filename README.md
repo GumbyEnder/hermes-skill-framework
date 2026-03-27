@@ -1,4 +1,3 @@
-Hermes Skill Framework is a model-agnostic open source project for defining, validating, and running reusable agent skills across different LLM backends.
 
 The goal is to take the best parts of skill-based workflows — structured prompts, repeatable procedures, tool-aware execution, and consistent outputs — and make them portable across Hermes, Claude, OpenAI, local models, and future providers.
 
@@ -62,8 +61,12 @@ Core deliverables for the new project:
 - a loader for skill packs
 - a provider abstraction layer
 - a validation pipeline
-- example packs
+- example packs with reference files
 - documentation for Hermes integration
+
+## Included packs
+
+- `packs/railway/` — model-agnostic adaptation of the Railway workflow
 
 ## What does not belong in core
 
