@@ -1,4 +1,3 @@
-name: seo-visibility-router
 description: >
   Route SEO, GEO, and search visibility requests to the right workflow.
   Use this skill when the user asks about keyword research, content optimization,
@@ -6,7 +5,7 @@ description: >
   previews, AI search visibility, citation monitoring, or general SEO tool choice.
 metadata:
   version: 1.0.0
-  origin: inspired by serpapi/awesome-seo-tools
+  origin: inspired by a curated essential SEO tools taxonomy
   license: see upstream references before reuse
 ---
 

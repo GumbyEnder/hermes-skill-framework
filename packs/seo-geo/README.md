@@ -1,4 +1,3 @@
-
 This pack gives Hermes a practical, model-agnostic way to work through SEO, GEO, and search visibility tasks.
 
 It is not trying to be a giant tools directory. It is a routing layer for real work:
@@ -24,10 +23,9 @@ This pack is meant to turn the catalog into a workflow.
 
 ## Source inspiration
 
-This pack was shaped partly by the category structure in:
-- https://github.com/serpapi/awesome-seo-tools
+This pack was shaped partly by a curated essential SEO tools taxonomy and the category structure of SerpApi’s SEO tools index.
 
-That repo is useful as a map of the SEO tool landscape, especially where it starts to touch AI search / GEO / visibility monitoring.
+That map is useful for understanding the SEO tool landscape, especially where it starts to touch AI search / GEO / visibility monitoring.
 Before copying any text or content from upstream sources, verify the license and keep attribution clean.
 
 ## Pack layout
