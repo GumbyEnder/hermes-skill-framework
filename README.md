@@ -1,4 +1,3 @@
-
 Hermes Skill Framework is a model-agnostic open source project for defining, validating, and running reusable agent skills across different LLM backends.
 
 The goal is to take the best parts of skill-based workflows — structured prompts, repeatable procedures, tool-aware execution, and consistent outputs — and make them portable across Hermes, Claude, OpenAI, local models, and future providers.
@@ -75,12 +74,3 @@ Avoid hard-coding any of the following into the core runtime:
 - vendor-specific prompt formats
 - business logic that only applies to one use case
 
-## Suggested next step
-
-Build the manifest spec first, then add a minimal runtime that can:
-1. load a skill pack
-2. validate the manifest
-3. route to a provider adapter
-4. execute the skill with a normalized input/output contract
-
-If you want the next execution pass, the most valuable first milestone is the manifest + loader + adapter interface.
