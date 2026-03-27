@@ -1,4 +1,3 @@
-
 The goal is to take the best parts of skill-based workflows — structured prompts, repeatable procedures, tool-aware execution, and consistent outputs — and make them portable across Hermes, Claude, OpenAI, local models, and future providers.
 
 ## Why this exists
@@ -35,7 +34,7 @@ See `ATTRIBUTION.md` for the proper credit and reuse boundaries.
 - The framework should be easy to extend with new skill packs
 - Examples should ship separately from the core runtime
 
-## Proposed structure
+## Structure
 
 ```text
 hermes-skill-framework/
