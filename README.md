@@ -1,4 +1,3 @@
-The goal is to take the best parts of skill-based workflows — structured prompts, repeatable procedures, tool-aware execution, and consistent outputs — and make them portable across Hermes, Claude, OpenAI, local models, and future providers.
 
 ## Why this exists
 
@@ -66,6 +65,7 @@ Core deliverables for the new project:
 ## Included packs
 
 - `packs/railway/` — model-agnostic adaptation of the Railway workflow
+- `packs/seo-geo/` — SEO, GEO, and search-visibility routing pack
 
 ## What does not belong in core
 
