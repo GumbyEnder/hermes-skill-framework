@@ -1,4 +1,3 @@
-
 ## Why this exists
 
 Most skill libraries are tied too tightly to one vendor, one model, or one agent shell.
@@ -66,6 +65,7 @@ Core deliverables for the new project:
 
 - `packs/railway/` — model-agnostic adaptation of the Railway workflow
 - `packs/seo-geo/` — SEO, GEO, and search-visibility routing pack
+- `packs/ai-friendly-web-design/` — agent-friendly UI and accessibility pack
 
 ## What does not belong in core
 
