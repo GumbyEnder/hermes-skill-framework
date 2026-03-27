@@ -1,4 +1,3 @@
-This pack turns the AI-friendly web design checklist into something Hermes can use directly.
 
 The core idea is simple: build web UI that is easy for humans to use and easy for agents to navigate.
 If a page is easier to read, easier to test, and easier to automate, it usually ends up being better for everyone.
@@ -27,6 +26,10 @@ The upstream package is published under CC BY 4.0, so attribution matters. Keep 
 - `skills/ai-friendly-web-design/references/guidelines.md` — full principle list and examples
 - `skills/agent-friendly-ui-review/SKILL.md` — deeper review workflow for frontend code and components
 - `skills/agent-friendly-ui-review/references/code-review-playbook.md` — severity, review flow, and reporting format
+- `skills/component-accessibility-review/SKILL.md` — component-level accessibility pass
+- `skills/component-accessibility-review/references/a11y-playbook.md` — structural review notes, semantics, and ARIA guidance
+- `skills/playwright-ui-test-guidance/SKILL.md` — UI test design and Playwright-oriented guidance
+- `skills/playwright-ui-test-guidance/references/test-playbook.md` — selector strategy, waits, and stable test patterns
 
 ## What this pack is good for
 
