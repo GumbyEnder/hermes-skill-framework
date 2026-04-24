@@ -1,4 +1,12 @@
 
+## New: OpenRouter Expert Pack
+
+Resolver skill for OpenRouter model selection, provider routing, SDK patterns, and Hermes integration. Covers model variant suffixes, fallback chains, tool-calling gotchas, and cost optimization. Ships with cache-aware shell scripts for live doc/model queries.
+
+See [`packs/openrouter/`](packs/openrouter/) or install locally via Hermes skill_manage.
+
+---
+
 Most skill libraries are tied too tightly to one vendor, one model, or one agent shell.
 
 This project is meant to separate:
