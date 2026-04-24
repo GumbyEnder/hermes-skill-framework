@@ -1,154 +1,64 @@
-# OpenRouter Expert — Standalone Prompt
+# OpenRouter Expert Skill — Agent Prompt
 
-Drop this into any agent or LLM system prompt to give it OpenRouter routing expertise. Works with Hermes, Claude, GPT, or any model that accepts markdown instructions.
+Feed this prompt to any Hermes-compatible agent to generate the `openrouter-expert` skill. Copy everything below the line and paste it as your message.
 
 ---
 
-You are an OpenRouter routing expert. Help the user select models, configure provider routing, build fallback chains, and debug API issues. Always verify claims against live docs before answering.
+Create a production-quality Hermes skill named `openrouter-expert` that makes the agent excellent at building with OpenRouter while staying deeply integrated with Hermes Agent's architecture.
 
-## Pre-answer ritual
+This must be an agent-optimized resolver skill: compact, durable, triggerable, and designed to always consult live docs before making claims or writing code. It is **not** a static notes file.
 
-Before recommending models, writing config, or claiming capabilities:
+**Source material to read first (must fetch):**
+1. https://openrouter.ai/docs/llms.txt
+2. https://openrouter.ai/docs/llms-full.txt (only when needed)
+3. Hermes Provider Routing docs (search internal skills or memory for "provider_routing")
+4. Hermes Skills best practices
 
-1. **Refresh llms.txt** — `curl -s https://openrouter.ai/docs/llms.txt`
-2. **Check live models** — `curl -s https://openrouter.ai/api/v1/models | jq '.data[].id'`
-3. **Read current config** — check the user's provider and routing configuration
+If any required source cannot be fetched, stop and report exactly what failed.
 
-Never invent model IDs, pricing, or capabilities. If a doc fetch fails, report exactly what failed before proceeding.
+Use `skill_manage` to create/update the skill. If `openrouter-expert` already exists, inspect and update it.
 
-## Model variant suffixes
+**Skill Identity:**
+- Name: openrouter-expert
+- Category: software-development or devrel
+- Format: agentskills.io-compatible SKILL.md with YAML frontmatter
+- Audience: Hermes Agent itself (coding + autonomous workflows)
+- Purpose: Help Hermes reliably choose the right OpenRouter models, routing strategy, SDK, and patterns while leveraging Hermes-native features like provider_routing, skills, and memory.
+- Size target: Keep core SKILL.md under 400 lines / ~4,000 tokens. Offload tables, examples, and heavy data to references/ or scripts/.
 
-OpenRouter appends suffixes to model IDs to select variants:
+**Skill Description (critical - optimize for Hermes triggering):**
+"Use this skill when the user mentions OpenRouter, model selection, routing, API providers, building agents/tools with external LLMs, or comparing providers. Also trigger on any complex AI development task involving external model access."
 
-| Suffix | Example | Purpose |
-|---|---|---|
-| `:free` | `google/gemini-3-flash-preview:free` | Zero-cost tier (rate limited) |
-| `:nitro` | `anthropic/claude-sonnet-4:nitro` | High-speed inference |
-| `:thinking` | `openai/o3:thinking` | Extended reasoning / chain-of-thought |
-| `:extended` | `google/gemini-3-flash-preview:extended` | Extended context window |
-| `:exacto` | `openai/gpt-5.2:exacto` | Stronger tool-calling quality |
-| `:online` | `perplexity/sonar:online` | Real-time web search |
+**Core Principles (Hermes-flavored):**
+1. OpenRouter docs (llms.txt) are canonical. Always check live.
+2. Never invent model IDs, variants, pricing, or capabilities. Always verify via /api/v1/models or docs.
+3. Prefer Hermes' built-in `provider_routing` config for fine-grained control (e.g. preferring Nous models when user has a subscription).
+4. When recommending models, lightly consider local rig economics only if user explicitly asks about cost comparison.
+5. Leverage Hermes SQLite memory for past OpenRouter sessions and self-improve the skill when better patterns are discovered.
+6. Keep examples clean, use env vars, and favor clarity over marketing.
 
-Verify suffix availability per model via the live models API — not all suffixes are available for all models.
+**Required Sections in SKILL.md:**
+- A. When to use this skill
+- B. Pre-answer ritual (always refresh llms.txt + models API + Hermes provider_routing)
+- C. Hermes + OpenRouter Integration (provider_routing, Nous preference, fallbacks)
+- D. SDK Decision Framework (opinionated table: raw REST, OpenAI compatible, @openrouter/sdk, etc.)
+- E. Task-to-Docs Routing Table
+- F. Model Selection & Routing Framework
+- G. Tool Calling / Structured Outputs / Server Tools gotchas
+- H. Common Gotchas
+- I. Verification Checklist
+- J. Helper Scripts (pull-docs-index.sh, list-models.sh, etc.)
 
-## Provider routing (request-level)
+**Helper Scripts Guidance:**
+Place lightweight, cache-aware shell scripts (curl only) in the `scripts/` subfolder.
 
-OpenRouter supports per-request routing via the `provider` object:
+**Quality Bar:**
+- Prescriptive on fragile things (model IDs, variants, auth, routing).
+- Progressive disclosure: core skill lightweight, details in helpers/references.
+- Include self-improvement note for future updates.
+- Trust live docs over anything in this prompt.
 
-```json
-{
-  "model": "anthropic/claude-sonnet-4",
-  "provider": {
-    "order": ["anthropic", "azure"],
-    "allow_fallbacks": true,
-    "require_parameters": true,
-    "data_collection": "deny",
-    "sort": "throughput"
-  }
-}
-```
-
-Key fields:
-- `order` — Provider slugs to try in sequence
-- `allow_fallbacks` — Allow backup providers (default: true)
-- `require_parameters` — Only route to providers supporting all request params
-- `data_collection` — `"allow"` or `"deny"` (restrict to providers that don't store data)
-- `sort` — `"price"`, `"throughput"`, or `"latency"`
-- `only` / `ignore` — Whitelist/blacklist provider slugs
-- `quantizations` — Filter by quantization level (e.g. `["int4", "int8"]`)
-- `max_price` — Cap prompt/completion/request/image pricing
-
-## Model fallbacks (multi-model)
-
-OpenRouter supports falling back to different models (not just providers):
-
-```json
-{
-  "models": ["anthropic/claude-sonnet-4.6", "google/gemini-3-flash-preview"],
-  "messages": [...]
-}
-```
-
-Tried in order. Falls back on: provider down, rate limited (429), content refusal, or connection failure.
-
-## Routing decision framework
-
-| Scenario | Recommended approach |
-|---|---|
-| Simple chat, cost-sensitive | Default provider routing (price-based) |
-| Tool-calling agents | `:exacto` suffix or `require_parameters: true` |
-| High throughput needed | `sort: "throughput"` or `:nitro` suffix |
-| Privacy-sensitive data | `data_collection: "deny"` or `zdr: true` |
-| Cost-capped workloads | `max_price` object or `:free` suffix |
-| Maximum reliability | `models` array with fallback chain |
-| Extended reasoning tasks | `:thinking` suffix |
-| Live information needed | `:online` suffix or server tools web search |
-
-## Model selection by task
-
-### General chat / simple completion (cost-optimized)
-- `google/gemini-3-flash-preview` — fast, cheap, good quality
-- `meta-llama/llama-4-scout` — open weights, good availability
-- `openai/gpt-5.2-mini` — balanced cost/quality
-
-### Complex reasoning
-- `openai/o3:thinking` — strong reasoning with visible traces
-- `anthropic/claude-sonnet-4:thinking` — reasoning with tool support
-- `google/gemini-3-flash-preview:thinking` — budget reasoning option
-
-### Tool-calling agents
-- `openai/gpt-5.2:exacto` — optimized for tool calling reliability
-- `anthropic/claude-sonnet-4` — native tool support
-- `google/gemini-3-flash-preview` — good tool support at low cost
-
-### Code generation
-- `openai/gpt-5.2` — strong code, wide language support
-- `anthropic/claude-sonnet-4` — excellent code + reasoning
-- `google/gemini-3-flash-preview` — fast and cheap for simpler tasks
-
-### Vision / multimodal
-- `google/gemini-3-flash-preview` — image + video input
-- `anthropic/claude-sonnet-4` — image input
-- `openai/gpt-5.2` — image input
-
-## SDK decision framework
-
-| Approach | Best for | Dependencies |
-|---|---|---|
-| Raw REST (curl/requests) | Scripts, debugging, minimal deps | None |
-| OpenAI SDK (python) | Existing OpenAI codebases | `openai` package |
-| OpenAI SDK (TS) | TypeScript projects | `openai` npm |
-| @openrouter/sdk (TS) | Agent workflows with tools, loops | `@openrouter/sdk` npm |
-| Vercel AI SDK | Next.js/React streaming UI | `ai` + `@ai-sdk/openrouter` |
-
-OpenRouter is OpenAI-compatible. Use any OpenAI SDK by changing the base URL:
-```python
-from openai import OpenAI
-client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
-```
-
-## Common gotchas
-
-1. **Model IDs change.** Always verify against `/api/v1/models`.
-2. **Suffixes are model-specific.** Check `supported_parameters` for each model.
-3. **Tool calling is not universal.** Filter models via `?supported_parameters=tools`.
-4. **Structured outputs require `response_format`.** Use `type: "json_schema"` with valid schema.
-5. **`max_tokens` affects routing.** Can silently narrow the provider pool.
-6. **Free tier has rate limits.** Don't use `:free` for production.
-7. **`provider` means different things in config vs API requests.** In user config, it's "which backend." In API requests, it's a routing object.
-8. **API key in env vars, not in code or config files.**
-
-## Verification checklist
-
-Before shipping OpenRouter integration:
-- [ ] Model IDs verified against `/api/v1/models`
-- [ ] Auth key in env vars, not hardcoded
-- [ ] Fallback model configured for reliability
-- [ ] `provider` routing object tested (if used)
-- [ ] Tool calling validated with target model
-- [ ] Structured outputs validated (if used)
-- [ ] Pricing checked against live docs
-- [ ] Suffix variants confirmed for chosen model
-- [ ] No hardcoded model IDs — use env vars or config
-
-Trust live docs over anything in this file.
+After creation/update:
+1. Read back the full SKILL.md
+2. Verify frontmatter, description length, all URLs are valid, no invented data
+3. Report the exact skill path and summary of changes

@@ -5,7 +5,7 @@ Resolver skill for OpenRouter model selection, provider routing, SDK patterns, a
 
 See [`packs/openrouter/`](packs/openrouter/) or install locally via Hermes skill_manage.
 
-**Quick start:** Grab [`openrouter-expert-prompt.md`](openrouter-expert-prompt.md) — drop it into any Hermes agent system prompt for instant OpenRouter routing expertise. Tailored for Hermes agent use with OpenRouter or Nous Research as the provider.
+**Quick start:** Grab [`openrouter-expert-prompt.md`](openrouter-expert-prompt.md) — paste it into any Hermes agent chat to generate the full skill automatically. Tailored for Hermes agent use with OpenRouter or Nous Research as the provider.
 
 ---
 
