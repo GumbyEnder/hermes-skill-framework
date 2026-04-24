@@ -67,6 +67,7 @@ Core deliverables for the new project:
 | `packs/railway/` | Railway infrastructure operations, deploys, config, logs, and database analysis |
 | `packs/seo-geo/` | SEO, GEO, search visibility, and AI-search routing |
 | `packs/ai-friendly-web-design/` | Agent-friendly UI, accessibility, and frontend review workflows |
+| `packs/openrouter/` | OpenRouter model selection, provider routing, SDK patterns, and Hermes integration |
 
 ## What does not belong in core
 
