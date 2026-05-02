@@ -9,6 +9,20 @@ See [`packs/openrouter/`](packs/openrouter/) or install locally via Hermes skill
 
 ---
 
+## New: Medusa Admin Pack
+
+Manage a Medusa.js v2 headless commerce store directly through Hermes — view products, check orders, fulfill shipments, update inventory, manage customers and collections. All from Discord, CLI, or cron.
+
+**Endpoints covered:** Products (CRUD), Orders (list/get/fulfill/cancel/archive), Customers, Collections, Inventory (per-variant stock), Store info, Regions. 16 endpoints documented with full request/response schemas.
+
+**Dual auth:** Pre-generated admin API token (`MEDUSA_ADMIN_TOKEN`) or email/password JWT exchange. Read-only by default — destructive operations require `confirm=true`.
+
+See [`packs/medusa/`](packs/medusa/) for the full pack README, prerequisites, and quick start.
+
+**Quick start:** Grab [`medusa-admin-prompt.md`](medusa-admin-prompt.md) — paste it into any Hermes agent chat to regenerate the full skill from scratch.
+
+---
+
 Most skill libraries are tied too tightly to one vendor, one model, or one agent shell.
 
 This project is meant to separate:
@@ -78,6 +92,7 @@ Core deliverables for the new project:
 | `packs/seo-geo/` | SEO, GEO, search visibility, and AI-search routing |
 | `packs/ai-friendly-web-design/` | Agent-friendly UI, accessibility, and frontend review workflows |
 | `packs/openrouter/` | OpenRouter model selection, provider routing, SDK patterns, and Hermes integration |
+| `packs/medusa/` | Medusa.js v2 store admin — products, orders, inventory, customers, collections |
 
 ## What does not belong in core
 
